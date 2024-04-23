@@ -1,5 +1,9 @@
 \documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{hyperref}
+% \setlength{\parskip}{0.5em}
+\usetikzlibrary{positioning, shapes.geometric}
 
 %_______________________________________________________________
 %                    Packages needed:
@@ -296,8 +300,47 @@
     \newpage
 
     \section{APIs}
+    \paragraph*{Application Programming Interface (API)} An API is basically an intermediary that allows two applications to talk to each other. 
+
+    It's useful to think of API communication in terms of requests and responses between a client and a server. The application submitting the request is the client, and the server provides the response.
+
+    \paragraph{API Specification} Is a document or standard that describes how to build or how to use an API. A system that meets this standard its said to be \textit{implementing} or \textit{exposing} an API. The term API can refer to both the implementation and the specification.
 
     \subsection{RESTful APIs}
+    
+    "The design rationale behind the Web architecture can be described by an architectural style consisting of the set of constraints applied to elements within the architecture." \href{https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}{source}
+
+    To understand REST, we'll be expanding and building on top of each constraint that composes this architecture.
+
+    Violating any constraint other than Code on Demand means that the service is not strictly RESTful.
+
+    
+    \subsubsection{Uniform Interface}
+    \paragraph{Resource Based}
+    Individual resources are identified using URIs as resource identifiers. The resources themselves are conceptually different from the \textit{representation} that is returned to the client. For example, the server doesn't return its database but rather some HTML, JSON or XML that represents some database records.
+
+    \paragraph{Manipulation of Resources Through Representations} When a client holds a representation of a resource given by the server, including any metadata attached to it, it should have enough information to modify or delete said resource on the server, given it has the right permissions. 
+
+    \paragraph{Self-Descriptive Messages} Each message includes all the necessary information to describe how to handle that message. 
+
+    
+    \subsubsection{Client-Server} Separation of Concerns is the principle behind this constraint. By separating the user interface (UI) concerns from the data storage concerns, we improve the portability of the UI across multiple platforms.
+    
+
+    \subsubsection{Stateless} This constraint stablish that the interaction between the client and the server must be stateless in nature, by that, meaning that any request made by the client must contain all the necessary information so that the server can understand the request. It shall not take advantage of any stored context. 
+    
+    \paragraph{Stateless} Imagine that you're buying coffee at a shop. Each time you want to order a coffee you need to tell the cashier exactly what you want and how you want it. The cashier doesn't remember you or what you ordered the last time you went there. Each visit is like starting from scratch. 
+
+    \paragraph{Stateful} The cashier remembers you and remember what you usually ask for as you're a frequent client. So, you could say 'the usual' and they'd know exactly what you want.
+
+    \subsubsection{Cacheable} Clients should can cache responses. Responses must, implicitly or explicitly, define themselves as cacheable or not. Clients should be able to negotiate wether to cache or not to prevent reusing stale or inappropriate data in response to further requests.
+
+
+    \subsubsection{Layered System} A client cannot tell whether its connected to the main server or an intermediary along the way. The layered system style allows an application to be composed of hierarchical layers by constraining component behavior such that each component can't see beyond the immediate layer with which they are interacting.
+
+    \subsubsection{Code on Demand} This is a kind-of unique thing about RESTful systems. Code on Demand is optional. Basically means that a server can temporarily extend functionality to a client by transferring logic to the client. As an example, a request can return client-side scripts such as Javascript code.
+
+
     \subsection{JSON APIs}
     \subsection{SOAP APIs}
     \subsection{GraphQL APIs}
