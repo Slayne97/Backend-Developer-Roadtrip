@@ -308,6 +308,10 @@
 
     \subsection{RESTful APIs}
     
+
+    REST stands for Representational State Transfer, and it's an architectural style for designing networked applications. A RESTful API (Application Programming Interface) adheres to the principles of REST.
+
+
     "The design rationale behind the Web architecture can be described by an architectural style consisting of the set of constraints applied to elements within the architecture." \href{https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm}{source}
 
     To understand REST, we'll be expanding and building on top of each constraint that composes this architecture.
@@ -346,7 +350,29 @@
     \subsection{GraphQL APIs}
     \subsection{gRPC APIs}
     
-    \subsection{Authentication}
+    \subsection{Authentication \& Authorization}
+    \paragraph*{Authentication} is the process that an individual, process or system goes through to \textbf{prove} their identity before gaining access to digital systems.
+
+    \paragraph*{Authorization} is the process of determining whether a user, system or application has the necessary permissions to perform a particular action within a system. 
+
+    \paragraph*{API Authentication} validates the identity of the client attempting to make a connection by using an authentication protocol. The protocol sends the credentials from the remote client requesting access to the server for verification, usually the credentials are in either plain text or some form of encrypted format.
+
+    \subsubsection{Session Authentication} 
+    
+    \paragraph*{Session} A session, refers to a temporary, stateful interaction between a user and a server. 
+    A session, is a period of interaction between a user an a server, during which the user's actions and data are temporarily stored and managed by the server. 
+
+    \begin{itemize}
+        \item \textbf{Duration}: A session begins when the user logs into the server and ends when they log out, or after a period of inactivity. 
+        \item \textbf{Session Data}: During the sessions, the server stores information relevant to the user's interaction, such as their authentication status, user ID, preferences, etc.
+        \item \textbf{Session ID}: To uniquely identify each sessions, the server assigns a session identifier. This session id is used to to associate the Session Data with the User
+    \end{itemize}
+
+    \paragraph*{Example} When you log in (authenticate) into a web application, the server creates a session and then keeps track of it itself. Then it creates a Session ID and gives it to you, subsequently, the client (you) pass this Session ID to the server with each request. Then, the Server looks this Session ID up in its Session Log, and if it finds it, it knows who you are and what you're allowed to do.
+
+    How the client passes the Session ID to the server, depends on the implementation, but it's usually done through Cookies.
+
+
     \subsubsection{JWT}
     \subsubsection{Basic Auth}
     \subsubsection{Token Auth}
@@ -409,6 +435,7 @@
 
     \newpage
     \section{Architectural Patterns}
+    \subsection{Load Balancer}
     \subsection{Monolithic Apps}
     \subsection{Microservices}
     \subsection{SOA}
