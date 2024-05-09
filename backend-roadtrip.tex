@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
 \usepackage{hyperref}
+\usepackage{graphicx}
 % \setlength{\parskip}{0.5em}
 \usetikzlibrary{positioning, shapes.geometric}
 
@@ -505,6 +506,81 @@
 
     \newpage
     \section{Docker}
+    \paragraph{Container} A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another.
+
+    A container is a way to package our applications including all the dependencies that it needs, including its configuration files. This makes them portable. Making development and deployment much faster. 
+
+    \paragraph*{Image} A Docker Image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+
+    An image is a packaging containing all the dependencies and the code. This is what's gonna be shared. Finally a container is an image we configured which its going to have all the dependencies running, alongside with environment variables, etc. A container, is basically layers upon layers of images, where usually the bottom layer is a Linux image. 
+
+    A container is an instance of an image.
+
+    \subsection{Virtualization}
+
+    At its core, Docker is a virtualization tool. 
+
+    \paragraph*{Virtualization} Is the process of creating a virtual version of something, such as an operating system, a server, a storage device or network resources. 
+
+    \paragraph{Host} Being the physical machine that runs the virtualization software.
+
+    \paragraph{Guest} The virtual machine or OS that runs on the host.
+    
+
+    \paragraph{Layers of Virtualization} The concept of virtualization is based on three layers.
+    \begin{itemize}
+        \item \textbf{Hardware}: Where the physical hardware is located. 
+        \item \textbf{Kernel}: The kernel is the core of the operating system. It's the bridge between the hardware and the software.
+        \item \textbf{Application}: This is your software, the applications you run on your computer.
+    \end{itemize}
+
+    \paragraph{A Virtual Machine (VM)} is a software that emulates a physical computer. It creates a virtualized environment that behaves like a separate computer. When you run a VM, the Kernel and the Application layers are what's being virtualized.
+
+    As you may realize, this is very resource intensive.
+
+    \paragraph*{Docker}, on the other hand, lives on the Application layer. It doesn't virtualize the hardware, nor the kernel. It just virtualizes the application. This makes it much more lightweight than a VM.
+
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/docker-vs-vms.png}
+        \caption{Docker vs VMs}
+        \label{fig:my_label}
+    \end{figure}
+
+    \paragraph{Types of Virtualization} Exists three types of virtualization:
+    \begin{itemize}
+        \item \textbf{Para-Virtualization}: In para-virtualization, the host is trying to give the guest most of their hardware. 
+        \item \textbf{Partial Virtualization}: Where some components of the host's hardware are virtualized and given to the guest.
+        \item \textbf{Full Virtualization}: In full virtualization, the guest is given a full copy of the host's hardware.
+    \end{itemize}
+
+    For each of this cases, Docker is going to be superior, as Docker uses the kernel of the host directly.
+
+    \subsection{Docker Network}
+
+    \paragraph{Network} A Network in simple terms is a group of two or more devices that can communicate with each other either physically or virtually.
+
+    \paragraph*{Docker Network} The Docker Network  is a virtual network created by Docker to enable communication between Docker Containers. Container Networking refers to the ability for containers to connect to and communicate withe ach other, or to non-Docker workloads.
+
+    Containers have networking enabled by default, and they can make outgoing connections. A container has no information about what kind of network it's attached to, or whether their peers are also Docker workloads or not. 
+
+    \paragraph*{Port Mapping} is a way to allow traffic to flow from the outside world into a container. Since containers are isolated environments, if you want to access a web application inside a container from your web browser, you need to map the port on which the application is running inside the container to a port on the host machine.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/docker-port-mapping.png}
+        \caption{Docker Port Mapping}
+        \label{fig:docker-port-mapping}
+    \end{figure}
+
+    As per the figure above, the Node JS container is running on port 3000. To access this container from the host machine, we need to map the port 3000 of the container to a port on the host machine. In this case, we're mapping the port 3000 of the container to the port 3000 of the host machine. 
+
+    Usually, you would find that in cases where you have multiple containers running on the same port, you would map the port of the container to a different port on the host machine. So, if you have two containers with Node JS each with a web application running on port 3000, you would map the port of the first container to port 3000 of the host machine, and the port of the second container to port 3001 of the host machine. Although this is not mandatory, it's a good practice to avoid conflicts.
+
+
+
+
     \subsection{}
     \subsection{}
     
