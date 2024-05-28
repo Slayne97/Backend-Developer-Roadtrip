@@ -375,13 +375,407 @@
 
 
     \subsubsection{JWT}
+
+    \paragraph*{JWT} or JSON Web Token, is a compact, URL-Safe means of representing claims between two parties. The claims in a JWT are encoded as JSON objects.
+
+    A JWT consists of three parts:
+
+    \begin{itemize}
+        \item \textbf{Header}: Contains the type of token and the signing algorithm being use. (e.g. HMAC SHA256, or RSA).
+        \item \textbf{Payload}: Contains the Claims. Claims are statements about an entity (typically the user) and additional data.
+        \item \textbf{Signature}: The signature is created by taking the combined encoded header and payload, and signing it using the algorithm specified in the header and a secret key or private key.
+    \end{itemize}
+
+    \paragraph*{Claims} In the context of JWT, claims refer to pieces of information that are included in the token. These pieces of information are \textbf{statements} about an entity. Claims are stored in the payload part of the JWT.
+
+    There are three types of Claims.
+    
+    \begin{itemize}
+        \item \textbf{Registered Claims}: These are part of a set of predefined claims which are not mandatory but recommended to provide a set of useful, interoperable claims, like:
+        \begin{itemize}
+            \item \textbf{iss} (issuer): Identifies the principal that issued the JWT.
+            \item \textbf{sub} (subject): Identifies the principal that is the subject of the JWT.
+            \item \textbf{aud} (audience): Identifies the recipients that the JWT is intended for.
+            \item \textbf{exp} (expiration time): Identifies the expiration time on or after which the JWT must not be accepted for processing.
+            \item \textbf{nbf} (not before): Identifies the time before which the JWT must not be accepted for processing.
+            \item \textbf{iat} (issued at): Identifies the time at which the JWT was issued.
+            \item \textbf{jti} (JWT ID): Provides a unique identifier for the JWT.
+        \end{itemize}
+        \item \textbf{Public Claims}: They can be defined by developers to include custom information. These claims can be used publicly, meaning that they can be understood by anyone who processes the JWT.
+        \item These are custom claims created to share information between parties that agree on using them. They are neither registered nor public claims, and they are meant to be used within a specific context between the parties involved.
+    \end{itemize}
+
+
     \subsubsection{Basic Auth}
     \subsubsection{Token Auth}
     \subsubsection{OAuth}
     \subsubsection{Cookie Based}
     \subsubsection{OpenID \& SAML}
 
+    \section*{HTTP}
+
+    \paragraph{Hypertext Transfer Protocol (HTTP)} Is a protocol for fetching resources over the internet. It is the foundation of the Web and its a client-server protocol. Clients, usually a web browser, and servers communicate by exchanging messages. The messages send by the client are called Requests and the messages sent by the server are called Responses.
+
+    \paragraph*{Client-Server Architecture} HTTP operates on a client-server model where the client (usually a web browser) send a request to the server, and the server responds with the requested resource (e.g. an HTML page, image, or JSON data)
+
+    \paragraph*{Stateless Protocol} Each HTTP request from a client to a server is independent; it carries all the information the server needs to fulfill the request. This stateless nature simplifies server design bc it doesn't need to retain information about previous requests.
+
+    \subsection{HTTP Methods \& Status Codes}
+        \subsubsection{HTTP Methods}
+            \paragraph{GET} Requests a representation of a specified resource. GET requests should only retrieve data.
+            \paragraph{POST} Submits data to be processed to a specified resource, often causing a change in state or side effects on the server.
+            \paragraph{PUT} Replaces all current representations of the target resource with the request payload.
+            \paragraph{DELETE} Removes the specified resource.
+            \paragraph{PATCH} Applies partial modifications to a resource.
+        \subsubsection{HTTP Status Codes} Most common status codes.
+            \paragraph{1xx Informational}
+            \paragraph{2xx Success}
+
+            \begin{itemize}
+                \item 200 OK: The request has succeeded.
+                \item 201 Created: The request succeeded, and a new resource was created as a result. This is typically the response for a POST request.
+                \item 204 No Content: The request was successful, but there is no content tos end in the response.
+            \end{itemize}
+
+            \paragraph{3xx Redirection} 
+
+            \begin{itemize}
+                \item 301 Moved Permanently: The requested resource has been permanently moved to a new location.
+                \item 302 Found: The requested resource has been temporarily moved to a new location.
+            \end{itemize}
+
+            \paragraph{4xx Client Errors}
+
+            \begin{itemize}
+                \item 400 Bad Request: The server cannot process the request due to a client error.
+                \item 401 Unauthorized: The client must authenticate itself to get the requested response.
+                \item 403 Forbidden: The client does not have permission to access the requested resource.
+                \item 404 Not Found: The server cannot find the requested resource.
+            \end{itemize}
+
+            \paragraph{5xx Server Errors}
+
+            \begin{itemize}
+                \item 500 Internal Server Error: The server has encountered a situation it doesn't know how to handle.
+                \item 502 Bad Gateway: The server, while acting as a gateway or proxy, received an invalid response from the upstream server. Meaning the server is down or being upgraded.
+                \item 503 Service Unavailable: The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded.
+                \item 504 Gateway Timeout: The server, while acting as a gateway or proxy, did not receive a timely response from the upstream server.
+            \end{itemize}
+
+
+    \subsection{Common HTTP Headers}
+
+    HTTP Headers are key-value pairs sent between the client and the server in an HTTP request or response. They provide essential information about the request, the resposne, and the data being transferred. Examples of the most common headers include:
+
+        \paragraph{General Headers}
+
+        \begin{itemize}
+            \item \textbf{Cache-Control}: Specifies directives for caching mechanisms in both requests and responses. Examples of directives include \textit{no-cache}, \textit{no-store}, \textit{max-age}, and \textit{must-revalidate}. 
+            \item \textbf{Connection}: Controls whether the network connection stays open after the current transaction finishes. Examples of values include \textit{keep-alive} and \textit{close}. Keep-alive allows the connection to be reused for multiple requests. Close forces the connection to close after the current request.
+            \item \textbf{Date}: The date and time at which the message was sent.
+        \end{itemize}
+
+        \paragraph{Request Headers}
+
+        \begin{itemize}
+            \item \textbf{Accept}: Specifies the media types that the client can understand. The server should respond with one of these media types. Example values include \textit{text/html}, \textit{application/json}, and \textit{image/png}.
+            \item \textbf{Accept-Encoding}: Specifies the encoding algorithms that the client can understand. The server should respond with one of these encoding algorithms. Example values include \textit{gzip}, \textit{deflate}, and \textit{br}.
+            \item \textbf{Accept-Language}: Specifies the natural languages that the client can understand. The server should respond with one of these languages. Example values include \textit{en-US}, \textit{es}, and \textit{fr}.
+            \item \textbf{Authorization}: Contains credentials for authenticating the client with the server.
+            \item \textbf{User-Agent}: Contains information about the client making the request. This can include the client's operating system, browser, and version.
+            \item \textbf{Content-Type}: Specifies the media type of the data being sent in the request.
+        \end{itemize}
+
+        \paragraph{Response Headers}
+
+        \begin{itemize}
+            \item \textbf{Content-Type}: Specifies the media type of the data being sent in the response.
+            \item \textbf{Content-Length}: Specifies the length of the response body in octets (8-bit bytes).
+            \item \textbf{Set-Cookie}: Sets a cookie in the client's browser. Cookies are used to store information about the client's session.
+            \item \textbf{Location}: Specifies the URL to redirect the client to. This is often used in 3xx redirection responses.
+            \item \textbf{WWW-Authenticate}: Specifies the authentication method that the client must use to access the resource.
+        \end{itemize}
+
+
+        \subsubsection{Content-Type} This header is a critical component that indicates the media type of the resource being sent. It tells the client or the server how to interpret the data in the body of the request or response. 
+
+        The \textit{Content-Type} header consists of: 
+
+        \begin{itemize}
+            \item \textbf{Media Type}: The type of data being sent (e.g., text, image, application).
+            \begin{itemize}
+                \item \textit{text}: Represents textual information. Examples include HTML, CSS, and plain text.
+                \item \textit{image}: Represents image data. Examples include PNG, JPEG, and GIF.
+                \item \textit{application}: media types are used to denote formats that are usually processed by applications rather than directly read by humans. These types often require specific software to interpret or manipulate the data.
+            \end{itemize}
+            \item \textbf{Subtype}: The specific format of the data (e.g., HTML, JSON, PNG).
+            \item \textbf{Optional Parameters}: Additional information about the media type, often specifying the character encoding (e.g., charset=UTF-8).
+        \end{itemize}
+
+        \paragraph{application/x-www-form-urlencoded} This is the default encoding for form data. It encodes form fields as key-value pairs, with special characters replaced by escape sequences. This encoding is commonly used in HTML forms and URL query strings. Note that the space character is encoded as \textit{\%20} or the plus sign (\textit{+}).
+
+        \begin{verbatim}
+            name=John+Doe&age=25
+        \end{verbatim}
+
+        \paragraph{application/json} Commonly used in API requests and responses to transfer JSON data. 
+
+        \begin{verbatim}
+            {
+                "name": "John Doe",
+                "age": 25
+            }
+        \end{verbatim}
+
+
+        \paragraph{application/xml} Used to transfer XML data.
+
+        \begin{verbatim}
+            <person>
+                <name>John Doe</name>
+                <age>25</age>
+            </person>
+        \end{verbatim}
+
+
+
+        \subsubsection{Content-Length} This headers specifies the size of the body of the request or response, measured in bytes. It is used by the client and server to understand the exact size of teh content being sent or received.
+
+        \subsubsection{User-Agent} This headers provides a way to identify the client software that is making the request. This ehader contains a string that provides details about the user agent (browser, application, or other software) and the operating system it is running on. This information can be used by the server for various purposes, such as content negotiation, analytics and logging. 
+
+        \subsubsection{Authorization} This header is used to proved credentials that atuhenticate the client to the server. This header allows the server to verify the identity of the client and grant acces to protected resources. The header supports various authentication schemes. 
+
+        \begin{itemize}
+            \item Basic Authentication: The client sends a base64-encoded username and password separated by a colon. The server decodes the credentials and verifies them against a user database.
+            \item Bearer Token: The client sends a token that was previously obtained from the server. The server validates the token to authenticate the client.
+            \item Digest Authentication: The client sends a hashed value of the username, password, and other information. The server verifies the hash to authenticate the client.
+            \item OAuth: The client sends an access token that was previously obtained from an OAuth server. The server validates the token to authenticate the client.
+            \item API Key: The client sends an API key that was previously obtained from the server. The server validates the key to authenticate the client.
+            \item JWT: The client sends a JSON Web Token (JWT) that was previously obtained from the server. The server validates the token to authenticate the client.
+        \end{itemize}
+
+        Usually, the authorization header is in the format \textit{Authorization : <type> <credentials>} for example:
+
+        \begin{verbatim}
+            Authorization: Bearer eyHstOSkasd...
+        \end{verbatim}
+
+
+        \subsubsection{Cache-Control}
+        \subsubsection{Cookie}
+        \subsubsection{Set-Cookie}
+        \subsubsection{Accept}
+        \subsubsection{Accept-Encoding}
+        \subsubsection{Host}
+        \subsubsection{Referer}
+
+    \subsection{Unicode \& Character Encoding}
+        \paragraph{UTF-8}
+        \paragraph{ISO-8859-1}
+        \subsubsection{URL Encoding}
+        
+    \subsection{CORS}
+        \paragraph{Origins}
+        \paragraph{Headers}
+        \paragraph{Methods}
+        \paragraph{Credentials}
+        \paragraph{Preflight Requests}
+        
+    \subsection{WebSockets}
+        \paragraph{Protocol}
+        \paragraph{Handshake}
+        \paragraph{Frames}
+
+
+        
+    \subsection{HTTP Versions}
+        \paragraph{HTTP/1.1}
+        \paragraph{HTTP/2}
+        \paragraph{HTTP/3}
+        
+    \subsection{HTTPS}
+        \paragraph{TLS/SSL}
+        \paragraph{Certificates}
+        \paragraph{Handshake}
+
+    \subsection{HTTP Cookies}
+        \paragraph{Creation}
+        \paragraph{Attributes}
+        \paragraph{SameSite}
+        \paragraph{Secure}
+        \paragraph{HttpOnly}
     
+    \section{Networking and Shit}
+    \subsection{The OSI Model}
+
+    \paragraph{The Open Systems Interconnection model} is a conceptual framework used to understand and implement standardized network protocols in seven layers. Each layer serves a specific function and communicates with the layers directly above and below it.
+
+    \paragraph{IP Addresses} Unique identifier assigned to each device connected to a network. It allows devices to locate and communicate with each other.
+
+    \begin{itemize}
+        \item Public IP: Used on the internet.
+        \item Private IP: Used within private networks (e.g., home or office)
+    \end{itemize}
+
+    \paragraph*{Ports} A port is a logical endpoint for communication, used to distinguish different types of network services running on the same IP address (device). 
+
+    \begin{itemize}
+        \item Well-Known Ports (0-1023): Assigned to widely used services and protocols.
+        \item Registered Ports (1024-49151): Assigned by IANA for specific services. 
+        \item Dynamic/Private Ports (49152-65535): Used for dynamic or temporary purposes.
+    \end{itemize}
+
+    \paragraph{Domain Name System (DNS)} The DNS translates human-readable domain names (e.g., www.example.com) into IP addresses that computers use to identify each other on the network.
+
+
+
+
+    \subsubsection{Application Layer} It s the topmost layer of the OSI model. It serves as the interface between the network services and the end-user applications. This layer provides the necessary protocols and functionalities for application to communicate over the network, enabling end-users to interact with networked systems.
+
+    \paragraph{Key Functions}
+
+    \begin{itemize}
+        \item Network Services: Provides services like file transfers, email, remote login and web browsing.
+        \item Data representation: Ensures data is presented in a readable format.
+        \item Communication: Facilitates communication between software applicaitons and network services.
+    \end{itemize}
+
+    \paragraph{Common Protocols}
+
+    \begin{itemize}
+        \item HTTP (Hypertext Transfer Protocol): Used for web browsing. Usually runs on port 80.
+        \item HTTPS: Secure version of HTTP, using SSL/TLS encryption. Usually runs on port 443.
+        \item FTP (File Transfer Protocol): Used for transferring files between systems. Usually runs on port 21.
+        \item SMTP (Simple Mail Transfer Protocol): Used for sending emails. Usually runs on port 25.
+        \item DNS (Domain Name System): Translates domain names to IP addresses. Usually runs on port 53.
+    \end{itemize}
+
+    \paragraph*{Example Scenario} Accessing a Website.
+    
+    \begin{enumerate}
+        \item URL Input: You enter `www.example.com` in your browser.
+        \item DNS Lookup: the browser send a DNS query to find the IP address of `www.example.com`. The DNS server replies with `93.184.216.34`
+        \item Sending a Request: The browser sends an HTTP request to `93.184.216.34` on port 80.
+        \item Server Response: The web server listens on port 80, processes the request, and sends back the webpage content.
+        \item Receiving Data: The browser receives the data and renders the webpage for you to view.
+    \end{enumerate}
+
+    \subsubsection{Presentation Layer} The Presentation Layer is the sixth layer of the OSI model. It acts as a translator between the application layer and the lower layers of the OSI model. This layer is responsible for the syntax and the semantics of the data being transmitted, ensuring that the data is readable by the receiving system.
+
+    \paragraph{Key Functions}
+
+    \begin{itemize}
+        \item Data Translation: Converts data both incoming to the appplication and outgoing from the application into a format that can be sent over the network.
+        \item Data Encryption and Decryption: Encrypts data before it is sent over the network to ensure secure comms.
+        \item Data Compression: Compresses and decompresses the data to reduce the size of the data being transmitted.
+        \item Serialization and Deserialization: Converts data into a format that can be stored or transmitted and then converts it back to its original form.
+    \end{itemize}
+
+    \paragraph*{Common Protocols}
+
+    \begin{itemize}
+        \item SSL/TLS: Secure Sockets Layer and Transport Layer Security are protocols used to encrypt data transmitted over the network. Most commonly used for HTTPS.
+        \item ASCII: American Standard Code for Information Interchange is a character encoding standard used for text files in computers and other devices.
+        \item JPEG: Joint Photographic Experts Group is a standard for compressing images.
+    \end{itemize}
+
+    This layers is also able to provide encryption and compression if the application layer ask it to do so.
+
+
+    \subsubsection{Session Layer} The Session Layer is the fifth layer of the OSI model. It is the responsible for managing and controlling the dialogs (sessions)  between two devices. This layer establishes, maintains, and terminates connections between applications, ensuring that the data is properly synchronized and delivered.
+
+    \paragraph{Common Protocols}
+
+    \begin{itemize}
+        \item NetBIOS: Network Basic Input/Output System is a protocol used for communication between computers on a local area network.
+        \item PPTP: Point-to-Point Tunneling Protocol is used to create a virtual private network (VPN) over the internet.
+        \item RPC: Remote Procedure Call is a protocol that allows a computer program to cause a subroutine or procedure to execute in another address space.
+    \end{itemize}
+
+    \subsubsection{Transport Layer}
+
+    The Transport Layer is the fourth layer of the OSI model. It is responsible for end-to-end communication between the source and destination devices. This layer ensures that data is delivered error-free, in sequence, and without loss or duplication.
+
+    \paragraph{Key Functions}
+    
+    \begin{itemize}
+        \item Segmentation and Reassembly: Breaks down large data into smaller segments for transmission and reassembles them at the destination.
+        \item Error Detection and Correction: Detects errors in the data and retransmits it if necessary.
+        \item Flow Control: Manages the flow of data between devices to prevent data loss due to congestion.
+    \end{itemize}
+
+    \paragraph{Common Protocols}
+    
+    \begin{itemize}
+        \item TCP (Transmission Control Protocol): Provides reliable, connection-oriented communication between devices. It ensures that data is delivered in the correct order and without errors.
+        \item UDP (User Datagram Protocol): Provides connectionless communication between devices. It is faster than TCP but does not guarantee delivery or order of data.
+    \end{itemize}
+
+    \subsubsection{Network Layer}
+
+    The Network Layer is the third layer of the OSI model. It is responsible for routing data from the source to the destination device. This layer determines the best path for data to travel and handles addressing, packet forwarding, and routing.
+
+    \paragraph{Key Functions}
+
+    \begin{itemize}
+        \item Logical Addressing: Assigns logical addresses (IP addresses) to devices on the network.
+        \item Routing: Determines the best path for data to travel from the source to the destination device.
+        \item Packet Forwarding: Forwards data packets from one device to another based on the destination address.
+    \end{itemize}
+
+    \paragraph{Common Protocols}
+
+    \begin{itemize}
+        \item IP (Internet Protocol): Provides logical addressing and routing of data packets between devices on the network.
+        \item ICMP (Internet Control Message Protocol): Used for error reporting and diagnostic functions in IP networks.
+        \item ARP (Address Resolution Protocol): Maps IP addresses to MAC addresses on a local network.
+        \item DHCP (Dynamic Host Configuration Protocol): Assigns IP addresses to devices on a network automatically.
+    \end{itemize}
+
+
+    \subsubsection{Data Link Layer}
+
+    Defines the format of data on the network. 
+
+    \subsubsection{Physical Layer}
+
+    Defines the physical connection between devices. Transmits raw bit stream over the physical medium.
+
+
+    \subsection{TCP/IP}
+    \subsubsection{Transmission Control Protocol (TCP)} Is a network protocol that lets two host connect and exchange data streams. TCP guarantees that the packages and data that are sent, come in the same order as they were sent. 
+
+    TCP is a connection-oriented protocol, meaning that it establishes a connection between the two hosts before sending data. It also ensures that the data is delivered error-free and in the correct order.
+
+    \paragraph{Connection-Oriented Communication} TCP uses a three-way handshake to establish a connection between the two hosts. The three steps are:
+
+    \begin{enumerate}
+        \item SYN (Synchronize): Device A (the client) wants to start a conversation with Device B (the server).
+        \item SYN-ACK (Synchronize-Acknowledge): The server responds with a SYN-ACK packet to acknowledge the connection request.
+        \item ACK (Acknowledge): The client sends an ACK packet to confirm the connection.
+    \end{enumerate}
+
+    When it wants to terminate a connection, it uses a four-way handshake.
+
+    \begin{enumerate}
+        \item FIN (Finish): The client sends a FIN packet to the server to close the connection.
+        \item ACK: The server responds with an ACK packet to acknowledge the request.
+        \item FIN: The server sends a FIN packet to the client to close the connection.
+        \item ACK: The client responds with an ACK packet to acknowledge the request.
+    \end{enumerate}
+
+    \paragraph*{Datagrams} Are the basic unit of information passed across the internet. They are packets of data that are sent and received over a network. 
+
+    A datagram is a self-contained, independent packet of data that is sent over a network. It contains the source and destination addresses, as well as the data being transferred.
+
+    \paragraph*{Internet Protocol (IP)} Is the principal communications protocol in the Internet protocol suite for relaying datagrams across network boundaries. Its routing function enables internetworking, and essentially establishes the Internet.
+
+
+
+
+
+    \subsection{UDP}
+    \subsection{DNS}
 
     \newpage
     \section{Caching}
